@@ -2,31 +2,33 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
+// Use hardcoded PORT for local, allow override for deployment
+const PORT = process.env.PORT || 5000;
+
 // Middleware
 app.use(cors());
-app.options('*', cors()); // Enable preflight for all routes
-app.use(express.json()); // Allow JSON request bodies
+app.options("*", cors()); // Enable preflight for all routes
+app.use(express.json()); // Parse incoming JSON
+
+// MongoDB config
+const dbConfig = require("./db");
 
 // Route imports
 const roomsRoute = require("./routes/roomsRoute");
 const usersRoute = require("./routes/usersRoute");
 const bookingsRoute = require("./routes/bookingsRoute");
 
-// DB config (ensure this connects to MongoDB)
-const dbConfig = require("./db");
-
 // Route registration
 app.use("/api/rooms", roomsRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/bookings", bookingsRoute);
 
-// Root test route (optional)
+// Root route (optional)
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-// Server start
-const port = 5000;
-app.listen(port, () => {
-  console.log(`✅ Server is running on http://localhost:${port}`);
+// Start server
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
