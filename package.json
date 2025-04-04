@@ -19,5 +19,12 @@
     "stripe": "^17.4.0",
     "sweetalert2": "^11.14.5",
     "uuid": "^11.0.3"
+  },
+  {
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7"
   }
+}
+
 }
